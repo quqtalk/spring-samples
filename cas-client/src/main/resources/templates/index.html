@@ -1,0 +1,24 @@
+<!DOCTYPE html >
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Home</title>
+</head>
+<body>
+	<h1>You login successfully!</h1>
+
+	<div style="border: 1px solid #B0C4DE; padding: 20px">
+		<h2>logout CAS and this service(application) completely</h2>
+		<form action="/logout/cas" method="post">
+			<input type="submit" value="logout"></input>
+		</form>
+	</div>
+	<div style="border: 1px solid #B0C4DE; padding: 20px; margin-top: 20px">
+		<h2>logout this service(application) only</h2>
+		<form action="/logout" method="post">
+			<input type="submit" value="logout"></input>
+		</form>
+	</div>
+
+</body>
+</html>
