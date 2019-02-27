@@ -1,8 +1,6 @@
-Demos standalone OAuth2 server started via Spring Security and Spring Security OAuth2.
-
-Run the project as Spring boot application. Below try different grant types.
-
-PS: parameters such as username, password, client_id, secret, etc. were hard coded both in code and below description.
+* Demos standalone OAuth2 server started via Spring Security and Spring Security OAuth2.
+* Run the project as Spring boot application. Below try different grant types.
+* PS: parameters such as username, password, client_id, secret, etc. were hard coded both in code and below description.
 
 # 1. authorization_code
 1. Access "http://localhost:8080/oauth/authorize?response_type=code&client_id=secret-key&redirect_uri=http://www.baidu.com" in browser.
