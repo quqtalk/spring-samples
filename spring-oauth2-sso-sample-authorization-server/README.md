@@ -1,11 +1,15 @@
 Demos standalone OAuth2 server started via Spring Security and Spring Security OAuth2.
+
 Run the project as Spring boot application. Below try different grant types.
+
+PS: parameters such as username, password, client_id, secret, etc. were hard coded both in code and below description.
 
 # 1. authorization_code
 1. Access "http://localhost:8080/oauth/authorize?response_type=code&client_id=secret-key&redirect_uri=http://www.baidu.com" in browser.
-2. Check the scope may grant, then click Authorize button.
-3. Get the "code" from the redirect url.
-4. Execute in terminal:
+2. Enter the username and password as "user:123456".
+3. Check the scope may grant, then click Authorize button.
+4. Get the "code" from the redirect url.
+5. Execute in terminal:
 ```bash
 curl -u secret-key:secret-value "http://localhost:8080/oauth/token?grant_type=authorization_code&code=1tyoKe&redirect_uri=http://www.baidu.com" -X POST
 ```
@@ -22,7 +26,8 @@ curl -u secret-key:secret-value "http://localhost:8080/oauth/token?grant_type=au
 
 # 2. implicit
 1. Access "http://localhost:8080/oauth/authorize?response_type=token&client_id=secret-key&redirect_uri=http://www.baidu.com" in browser.
-2. The access token will be in the redirect url, such as:
+2. Enter the username and password as "user:123456".
+3. The access token will be in the redirect url, such as:
 https://www.baidu.com/#access_token=f48ac369-8a02-43de-8012-ceaf96599b97&token_type=bearer&expires_in=42603&scope=avatar%20slogan%20email
 
 # 3. password
