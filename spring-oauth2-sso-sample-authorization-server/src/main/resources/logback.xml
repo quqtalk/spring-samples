@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<configuration scan="true" debug="false">
+    <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
+    <property name="logs" value="E:/idea-security/ssecurity-page/logs" />
+    <!--读取MySQL数据库配置文件信息-->
+    <!--<property resource="db_logback.properties"></property>-->
+    <!--<property name="APP_Name" value="${catalina.home}/logs"></property>-->
+ 
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+        	<!-- %-20(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{80} - %msg%n -->
+            <pattern>%-20(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{80} - %msg%n</pattern>
+        </encoder>
+    </appender>
+ 
+ 
+    <logger name="org.springframework.security"
+            additivity="false" level="TRACE">
+        <appender-ref ref="STDOUT" />
+    </logger>
+ 
+ 
+    <root level="DEBUG">
+        <appender-ref ref="STDOUT"/>
+    </root>
+ 
+</configuration>
