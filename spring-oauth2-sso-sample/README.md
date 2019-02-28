@@ -27,4 +27,3 @@ Behind the scene
 11. Successful authentication logic will be trigger, a good athentication object is set to SecurityContextHolder in AbstractAuthenticationProcessingFilter.successfulAuthentication().
 
 Step 7, 8 and 9 just worked as the general OAuth2 authorization_code grant type progress.
-
