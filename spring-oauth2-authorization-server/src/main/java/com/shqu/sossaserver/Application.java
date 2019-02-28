@@ -1,4 +1,4 @@
-package com.shqu.soss;
+package com.shqu.sossaserver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -11,7 +11,15 @@ import org.springframework.security.oauth2.provider.token.AuthorizationServerTok
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**
+ * 
+ * @author shqu
+ * @since 02/28/2019
+ *
+ */
 @SpringBootApplication
 @EnableAuthorizationServer
 public class Application {
@@ -24,20 +32,17 @@ public class Application {
 	}
 
 	@Bean
-	public TokenStore tokenStore() {
-		return new InMemoryTokenStore();
-	}
-
-	@Bean
-	public AuthorizationServerTokenServices tokenServices() {
-		DefaultTokenServices services = new DefaultTokenServices();
-		services.setTokenStore(tokenStore());
-		return services;
-	}
-
-	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return NoOpPasswordEncoder.getInstance();
 	}
 
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedOrigins("**");
+			}
+		};
+	}
 }

@@ -1,4 +1,4 @@
-package com.shqu.soss;
+package com.shqu.sossaserver;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +19,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.httpBasic().and().authorizeRequests().antMatchers("/").permitAll().antMatchers("/oauth/*").permitAll();
-
+		http.authorizeRequests().antMatchers("/logout").permitAll().anyRequest().authenticated().and().formLogin().and()
+				.logout().and().httpBasic();
 	}
 
 	@Override
