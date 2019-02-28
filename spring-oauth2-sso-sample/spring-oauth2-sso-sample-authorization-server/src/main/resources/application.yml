@@ -1,0 +1,15 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        name: sossaserver
+logging:
+  level:
+    root: info
+    org.springframework.security: debug
+
+    
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
