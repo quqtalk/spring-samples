@@ -38,6 +38,7 @@
 	</servlet>
 
 	<servlet-mapping>
+		<!-- sss is same with the default spring context configuration file sss-sevlet.xml, which is "convention over configuration" -->
 		<servlet-name>sss</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
