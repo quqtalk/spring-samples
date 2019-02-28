@@ -1,0 +1,1 @@
+This project demos Spring Security namespace configuration and classic Spring MVC xml configuration.
