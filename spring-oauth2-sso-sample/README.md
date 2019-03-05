@@ -27,3 +27,13 @@ Behind the scene
 11. Successful authentication logic will be trigger, a good athentication object is set to SecurityContextHolder in AbstractAuthenticationProcessingFilter.successfulAuthentication().
 
 Step 7, 8 and 9 just worked as the general OAuth2 authorization_code grant type progress.
+
+How OAuth2ClientAuthenticationProcessingFilter is enabled?
+===
+* @EnableOAuth2Sso
+    + @Import OAuth2SsoCustomConfiguration.class
+    + OAuth2SsoCustomConfiguration.postProcessAfterInitialization.(Object bean, String beanName)
+    + SsoSecurityAdapter.invoke(MethodInvocation invocation)
+    + SsoSecurityConfigurer.configure(HttpSecurity http)
+    + OAuth2ClientAuthenticationConfigurer.configure(HttpSecurity builder)
+    + HttpSecurity.addFilterAfter(OAuth2ClientAuthenticationProcessingFilter filter,AbstractPreAuthenticatedProcessingFilter.class);
