@@ -28,7 +28,7 @@ Behind the scene
 
 Step 7, 8 and 9 just worked as the general OAuth2 authorization_code grant type progress.
 
-<a href="1">How OAuth2ClientContextFilter is enabled?</a>
+<a name="1">How OAuth2ClientContextFilter is enabled?</a>
 ===
 **There is a @configuration register the OAuth2ClientContextFilter.**
 * @Configuration
@@ -41,7 +41,7 @@ Step 7, 8 and 9 just worked as the general OAuth2 authorization_code grant type 
     + @Import(OAuth2ClientConfiguration.class)
     + o.s.s.oauth2.config.annotation.web.configuration.OAuth2ClientConfiguration.oauth2ClientContextFilter()
 
-<a href="2">How OAuth2ClientAuthenticationProcessingFilter is enabled?</a>
+<a name="2">How OAuth2ClientAuthenticationProcessingFilter is enabled?</a>
 ===
 * @EnableOAuth2Sso
     + @Import OAuth2SsoCustomConfiguration.class
