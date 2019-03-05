@@ -30,12 +30,10 @@ Step 7, 8 and 9 just worked as the general OAuth2 authorization_code grant type 
 
 <a name="1">How OAuth2ClientContextFilter is enabled?</a>
 ===
-**There is a @configuration register the OAuth2ClientContextFilter.**
-* @Configuration
-    + @ConditionalOnClass(EnableOAuth2Client.class)
-    + OAuth2RestOperationsConfiguration.SessionScopedConfiguration.oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter, SecurityProperties security) 
+**There is a @Configuration which need autowired OAuth2ClientContextFilter.**
+* line 96: OAuth2RestOperationsConfiguration.SessionScopedConfiguration.oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter, SecurityProperties security) 
 
-**Below is where the OAuth2ClientContextFilter come.**
+**@EnableOAuth2Sso is the point where OAuth2ClientContextFilter bean registered.**
 * @EnableOAuth2Sso
     + @EnableOAuth2Client
     + @Import(OAuth2ClientConfiguration.class)
@@ -46,7 +44,29 @@ Step 7, 8 and 9 just worked as the general OAuth2 authorization_code grant type 
 * @EnableOAuth2Sso
     + @Import OAuth2SsoCustomConfiguration.class
     + OAuth2SsoCustomConfiguration.postProcessAfterInitialization.(Object bean, String beanName)
-    + SsoSecurityAdapter.invoke(MethodInvocation invocation)
-    + SsoSecurityConfigurer.configure(HttpSecurity http)
-    + OAuth2ClientAuthenticationConfigurer.configure(HttpSecurity builder)
+    + line 100: SsoSecurityAdapter.invoke(MethodInvocation invocation)
+    + line 102: SsoSecurityConfigurer.configure(HttpSecurity http)
+    + line 113: OAuth2ClientAuthenticationConfigurer.configure(HttpSecurity builder)
     + HttpSecurity.addFilterAfter(OAuth2ClientAuthenticationProcessingFilter filter,AbstractPreAuthenticatedProcessingFilter.class);
+    
+Behind @EnableResourceServer
+===
+1. Bean WebSecurityConfiguration is registered by @Configuration.
+2. WebSecurityConfiguration.springSecurityFilterChain() method is called since the @Bean annotation. 
+3. WebSecurity.build() is started, below is the build process. (at WebSecurityConfiguration line 104)
+    * WebSecurity.doBuild() is called ( at super class AbstractSecurityBuilder line 41, actually implementor AbstractConfiguredSecurityBuilder line 320 is executed) 
+    * init stack starts executing, finally ResourceServerConfiguration's super class WebSecurityConfigurerAdapter.init(final WebSecurity web) at line 321 is called.
+    * Then WebSecurityConfigurerAdapter.getHttp() is called, HttpSecurity is instantiated and basic configurers are set (WebSecurityConfigurerAdapter line 210 to 221), here is also how default filter security filter chain inited.
+    * ResourceServerConfiguration.configure(HttpSecurity http) is called through WebSecurityConfigurerAdapter line 231.
+    * Actually, customized ResourceServerConfigurerAdapter.configure(HttpSecurity http) is called at ResourceServerConfiguration line 154.
+    * init stack is done.
+    * WebSecurity.performBuild()
+    * HttpSecurity.build() is started (at WebSecurity line 294)
+    * ResourceServerSecurityConfigurer.configure(HttpSecurity http) is called 
+
+OAuth2AuthenticationProcessingFilter is instantiated which is responsible for OAuth2 authentication.
+        
+     
+    
+    
+    
