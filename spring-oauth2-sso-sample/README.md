@@ -14,8 +14,8 @@ How to run
 
 Behind the scene
 ===
-1. There is a filter "OAuth2ClientContextFilter" added automatically when @EnableOauth2Sso annotation used. It is seprated from the springSecurityFilterChain.
-2. And, OAuth2AuthenticationProcessingFilter will be added into springSecurityFilterChain.
+1. There is a filter "OAuth2ClientContextFilter" added automatically when @EnableOauth2Sso annotation used. It is seprated from the springSecurityFilterChain. See <a href="#1">how</a>.
+2. And, OAuth2AuthenticationProcessingFilter will be added into springSecurityFilterChain. See <a href="#2">how</a>.
 3. When unauthenticated user access resource of client application, there will be a AccessDeniedException thrown by AccessDecisionManager.decide() in FilterSecurityInterceptor.
 4. ExceptionTranslationFilter will handle AccessDeniedException, AuthenticationEntryPoint will commence the authentication.
 5. OAuth2ClientAuthenticationProcessingFilter.attemptAuthentication() will try to do authentication, which is try to get the access token via OAuth2RestOperations.getAccessToken().
@@ -28,7 +28,20 @@ Behind the scene
 
 Step 7, 8 and 9 just worked as the general OAuth2 authorization_code grant type progress.
 
-How OAuth2ClientAuthenticationProcessingFilter is enabled?
+<a href="1">How OAuth2ClientContextFilter is enabled?</a>
+===
+**There is a @configuration register the OAuth2ClientContextFilter.**
+* @Configuration
+    + @ConditionalOnClass(EnableOAuth2Client.class)
+    + OAuth2RestOperationsConfiguration.SessionScopedConfiguration.oauth2ClientFilterRegistration(OAuth2ClientContextFilter filter, SecurityProperties security) 
+
+**Below is where the OAuth2ClientContextFilter come.**
+* @EnableOAuth2Sso
+    + @EnableOAuth2Client
+    + @Import(OAuth2ClientConfiguration.class)
+    + o.s.s.oauth2.config.annotation.web.configuration.OAuth2ClientConfiguration.oauth2ClientContextFilter()
+
+<a href="2">How OAuth2ClientAuthenticationProcessingFilter is enabled?</a>
 ===
 * @EnableOAuth2Sso
     + @Import OAuth2SsoCustomConfiguration.class
