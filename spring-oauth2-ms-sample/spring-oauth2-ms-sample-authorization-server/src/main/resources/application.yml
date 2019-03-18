@@ -1,0 +1,22 @@
+server:
+  port: 8043
+  servlet:
+    session:
+      cookie:
+        name: somsas
+logging:
+  level:
+    root: info
+    org.springframework.security: debug
+
+    
+spring:
+  application:
+    name: authorization-server
+  thymeleaf:
+    prefix: classpath:/templates/
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
